@@ -1,15 +1,29 @@
 function Navbar() {
   return (
-    <nav className="bg-white shadow-md px-8 py-4 flex justify-between items-center">
-      <h1 className="text-2xl font-bold text-blue-700">CargoBid</h1>
+    <>
+      {/* Main Navbar */}
+      <nav className="bg-white shadow-md px-8 py-4 flex items-center fixed top-0 left-0 w-full z-50">
+        {/* Logo */}
+        <div className="flex-1">
+          <h1 className="text-2xl font-bold text-blue-600">CargoBid</h1>
+        </div>
 
-      <ul className="flex gap-6 list-none">
-        <li>Home</li>
-        <li>How it Works</li>
-        <li>Login</li>
-        <li>Register</li>
-      </ul>
-    </nav>
+        {/* Menu */}
+        <ul className="flex gap-8 text-gray-700 font-medium">
+          <li className="hover:text-orange-500 cursor-pointer">Home</li>
+          <li className="hover:text-orange-500 cursor-pointer">How it Works</li>
+          <li className="hover:text-orange-500 cursor-pointer">Login </li>
+          <li className="hover:text-orange-500 cursor-pointer">Register</li>
+        </ul>
+
+        {/* Button */}
+        <div className="ml-8">
+          <button className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-600">
+            Get Started
+          </button>
+        </div>
+      </nav>
+    </>
   );
 }
 
