@@ -1,16 +1,15 @@
-// import heroBg from "../assets/images.1.jpg";
+import heroBg from "../assets/images.1.jpg";
 
-/*function Home() {
+function Home() {
   return (
     <div
       style={{ backgroundImage: `url(${heroBg})` }}
       className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center pt-32"
     >
-      {/* Dark overlay */}
- /*     <div className="absolute inset-0 bg-black opacity-50"></div>
-
- /*     {/* Content */}
-  /*    <div className="relative z-10 text-center">
+      /* Dark overlay */
+      <div className="absolute inset-0 bg-black opacity-50"></div>
+      /* Content */
+      <div className="relative z-10 text-center">
         <h1 className="text-6xl font-bold text-white drop-shadow-lg">
           Bid Low, Ship Smart
         </h1>
@@ -28,6 +27,6 @@
       </div>
     </div>
   );
-} */
+}
 
-//export default Home;
+export default Home;
