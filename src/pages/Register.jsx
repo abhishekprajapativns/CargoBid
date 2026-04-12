@@ -1,4 +1,24 @@
+import { useState } from "react";
+
 function Register() {
+  const [registerData, setRegisterData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    role: "",
+  });
+
+  const handleChange = (e) => {
+    setRegisterData({ ...registerData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (clickEvent) => {
+    clickEvent.preventDefault();
+    console.log(registerData);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 pt-20">
       <div className="bg-white p-8 rounded-xl shadow-lg w-96">
@@ -10,6 +30,8 @@ function Register() {
           type="text"
           name="firstName"
           placeholder="First Name"
+          value={registerData.firstName}
+          onChange={handleChange}
           className="w-full border p-3 rounded-lg mb-4 outline-none focus:border-blue-500"
         />
 
@@ -17,6 +39,8 @@ function Register() {
           type="text"
           name="lastName"
           placeholder="Last Name"
+          value={registerData.lastName}
+          onChange={handleChange}
           className="w-full border p-3 rounded-lg mb-4 outline-none focus:border-blue-500"
         />
 
@@ -24,6 +48,8 @@ function Register() {
           type="email"
           name="email"
           placeholder="Email"
+          value={registerData.email}
+          onChange={handleChange}
           className="w-full border p-3 rounded-lg mb-4 outline-none focus:border-blue-500"
         />
 
@@ -31,23 +57,35 @@ function Register() {
           type="password"
           name="password"
           placeholder="Password"
+          value={registerData.password}
+          onChange={handleChange}
           className="w-full border p-3 rounded-lg mb-4 outline-none focus:border-blue-500"
         />
 
         <input
           type="tel"
-          name="phone"
+          name="phoneNumber"
           placeholder="Phone Number"
+          value={registerData.phoneNumber}
+          onChange={handleChange}
           className="w-full border p-3 rounded-lg mb-4 outline-none focus:border-blue-500"
         />
 
-        <select name="role" className="w-full border p-3 rounded-lg mb-4">
+        <select
+          name="role"
+          value={registerData.role}
+          onChange={handleChange}
+          className="w-full border p-3 rounded-lg mb-4"
+        >
           <option value="">Select Role</option>
           <option value="shipper">Shipper</option>
           <option value="transporter">Transporter</option>
         </select>
 
-        <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700">
+        <button
+          onClick={handleSubmit}
+          className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700"
+        >
           Register
         </button>
       </div>
