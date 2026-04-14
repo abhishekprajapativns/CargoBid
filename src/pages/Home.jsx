@@ -1,6 +1,8 @@
 import heroBg from "../assets/images.1.jpg";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <div
       style={{ backgroundImage: `url(${heroBg})` }}
@@ -17,11 +19,19 @@ function Home() {
         <p className="text-gray-200 mt-4 text-xl">
           Post your cargo, let transporters compete, save money!
         </p>
+
         <div className="mt-8 flex gap-4 justify-center items-center">
-          <button className="bg-blue-600 text-white px-6 py-3 rounded-full">
+          <button
+            onClick={() => navigate("/register?role=shipper")}
+            className="bg-blue-600 text-white px-6 py-3 rounded-full"
+          >
             I am Shipper
           </button>
-          <button className="bg-orange-500 text-white px-6 py-3 rounded-full">
+
+          <button
+            onClick={() => navigate("/register?role=transport")}
+            className="bg-orange-500 text-white px-6 py-3 rounded-full"
+          >
             I am Transporter
           </button>
         </div>

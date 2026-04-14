@@ -1,13 +1,17 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 function Register() {
+  const [searchparam] = useSearchParams();
+  const roleFromUrl = searchparam.get("role");
+
   const [registerData, setRegisterData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     phoneNumber: "",
-    role: "",
+    role: roleFromUrl || "",
   });
 
   const handleChange = (e) => {
@@ -62,25 +66,33 @@ function Register() {
           className="w-full border p-3 rounded-lg mb-4 outline-none focus:border-blue-500"
         />
 
-        <input
-          type="tel"
-          name="phoneNumber"
-          placeholder="Phone Number"
-          value={registerData.phoneNumber}
-          onChange={handleChange}
-          className="w-full border p-3 rounded-lg mb-4 outline-none focus:border-blue-500"
-        />
+        <div className="flex items-center border rounded-lg mb-4 overflow-hidden">
+          <span className="bg-gray-100 px-3 py-3 text-gray-600 border-r">
+            +91
+          </span>
+          <input
+            type="tel"
+            name="phoneNumber"
+            placeholder="Phone Number"
+            maxLength={10}
+            value={registerData.phoneNumber}
+            onChange={handleChange}
+            className="w-full p-3 outline-none focus:border-blue-500"
+          />
+        </div>
 
-        <select
-          name="role"
-          value={registerData.role}
-          onChange={handleChange}
-          className="w-full border p-3 rounded-lg mb-4"
-        >
-          <option value="">Select Role</option>
-          <option value="shipper">Shipper</option>
-          <option value="transporter">Transporter</option>
-        </select>
+        {!roleFromUrl && (
+          <select
+            name="role"
+            value={registerData.role}
+            onChange={handleChange}
+            className="w-full border p-3 rounded-lg mb-4"
+          >
+            <option value="">Select Role</option>
+            <option value="shipper">Shipper</option>
+            <option value="transporter">Transporter</option>
+          </select>
+        )}
 
         <button
           onClick={handleSubmit}
