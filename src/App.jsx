@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import ShipperDashboard from "./pages/ShipperDashboard";
 import Navbar from "./components/Shared/Navbar";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
@@ -15,6 +16,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/shipper/dashboard" element={<ShipperDashboard />} />
           </Routes>
         </div>
       </BrowserRouter>
