@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import axios from "axios";
 
 function Register() {
+  const { login } = useAuth();
   const [searchparam] = useSearchParams();
+  const navigate = useNavigate();
   const roleFromUrl = searchparam.get("role");
 
   const [registerData, setRegisterData] = useState({
@@ -19,9 +22,22 @@ function Register() {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (clickEvent) => {
+  const handleSubmit = async (clickEvent) => {
     clickEvent.preventDefault();
-    console.log(registerData);
+
+    const response = await axios.post(
+      "http://localhost:5000/api/auth/register",
+      registerData,
+    );
+
+    login(response.data.user, response.data.token);
+    console.log(response.data);
+
+    if (registerData.role === "shipper") {
+      navigate("/shipper/dashboard");
+    } else {
+      navigate("/transporter/dashboard");
+    }
   };
 
   return (

@@ -1,6 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import axios from "axios";
 
 function Login() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -10,9 +16,21 @@ function Login() {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (clickEvent) => {
+  const handleSubmit = async (clickEvent) => {
     clickEvent.preventDefault();
-    console.log(loginData);
+
+    const response = await axios.post(
+      "http://localhost:5000/api/auth/login",
+      loginData,
+    );
+
+    login(response.data.user, response.data.token);
+
+    if (response.data.user.role === "shipper") {
+      navigate("/shipper/dashboard");
+    } else {
+      navigate("/transporter/dashboard");
+    }
   };
 
   return (
