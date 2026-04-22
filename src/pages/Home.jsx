@@ -29,7 +29,7 @@ function Home() {
           </button>
 
           <button
-            onClick={() => navigate("/register?role=transport")}
+            onClick={() => navigate("/register?role=transporter")}
             className="bg-orange-500 text-white px-6 py-3 rounded-full"
           >
             I am Transporter
