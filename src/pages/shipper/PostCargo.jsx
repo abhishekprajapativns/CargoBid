@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function PostCargo() {
   const navigate = useNavigate();
@@ -20,7 +21,13 @@ function PostCargo() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(cargoData);
+
+    const response = await axios.post(
+      "http://localhost:5000/api/cargo/post",
+      cargoData,
+    );
+    console.log(response.data);
+    navigate("/shipper/dashboard");
   };
 
   return (
