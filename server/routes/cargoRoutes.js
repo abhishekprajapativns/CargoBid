@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { postCargo, getMyCargos } = require("../controllers/cargoController");
-const { Protect } = require("../middleware/authMiddleware");
+const { protect } = require("../middleware/authMiddleware");
 
-router.post("/post", postCargo);
-router.get("/my-cargos", Protect, getMyCargos);
+router.post("/post", protect, postCargo);
+router.get("/my-cargos", protect, getMyCargos);
 
 module.exports = router;
