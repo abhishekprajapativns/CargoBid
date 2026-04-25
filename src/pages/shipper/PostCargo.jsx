@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
 
 function PostCargo() {
+  const { token } = useAuth();
   const navigate = useNavigate();
 
   const [cargoData, setCargoData] = useState({
@@ -21,8 +23,6 @@ function PostCargo() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const token = localStorage.getItem("token");
 
     const response = await axios.post(
       "http://localhost:5000/api/cargo/post",
