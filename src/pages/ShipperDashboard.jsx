@@ -1,7 +1,28 @@
 import { useAuth } from "../context/AuthContext";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function ShipperDashboard() {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
+  const navigate = useNavigate();
+  const [cargos, setCargos] = useState([]);
+
+  useEffect(() => {
+    const fetchCargos = async () => {
+      const response = await axios.get(
+        "http://localhost:5000/api/cargo/my-cargos",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      setCargos(response.data.cargos);
+    };
+
+    fetchCargos();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 pt-24 px-8">
@@ -10,7 +31,10 @@ function ShipperDashboard() {
         <h1 className="text-3xl font-bold text-gray-800">
           Welcome, {user?.firstName}!
         </h1>
-        <button className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700">
+        <button
+          onClick={() => navigate("/post-cargo")}
+          className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700"
+        >
           + Post New Shipment
         </button>
       </div>
@@ -34,9 +58,29 @@ function ShipperDashboard() {
       {/* Shipments List */}
       <div className="bg-white p-6 rounded-xl shadow">
         <h2 className="text-xl font-semibold mb-4">My Shipments</h2>
-        <p className="text-gray-500 text-center py-8">
-          No shipments posted yet!
-        </p>
+
+        {cargos.length === 0 ? (
+          <p className="text-gray-500 text-center py-8">
+            No shipments posted yet!
+          </p>
+        ) : (
+          cargos.map((cargo) => (
+            <div key={cargo._id} className="border p-4 rounded-lg mb-4">
+              <div className="flex justify-between items-center">
+                <h3 className="font-bold text-lg">{cargo.cargoType}</h3>
+                <span className="text-blue-600 font-semibold">
+                  ₹{cargo.budget}
+                </span>
+              </div>
+              <p className="text-gray-500 text-sm mt-1">
+                {cargo.pickupLocation} → {cargo.deliveryLocation}
+              </p>
+              <p className="text-gray-400 text-sm">
+                Pickup: {cargo.pickupDate}
+              </p>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
