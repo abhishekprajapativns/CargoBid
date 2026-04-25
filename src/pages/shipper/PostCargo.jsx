@@ -22,9 +22,16 @@ function PostCargo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const token = localStorage.getItem("token");
+
     const response = await axios.post(
       "http://localhost:5000/api/cargo/post",
       cargoData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
     );
     console.log(response.data);
     navigate("/shipper/dashboard");
