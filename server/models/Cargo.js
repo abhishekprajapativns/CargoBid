@@ -2,6 +2,12 @@ const mongoose = require("mongoose");
 
 const cargoSchema = new mongoose.Schema(
   {
+    postedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
     cargoType: { type: String, required: true },
     weight: { type: String, required: true },
     pickupLocation: { type: String, required: true },

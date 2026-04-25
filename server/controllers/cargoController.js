@@ -13,6 +13,7 @@ const postCargo = async (req, res) => {
     } = req.body;
 
     const newCargo = await Cargo.create({
+      postedBy: req.user.id,
       cargoType,
       weight,
       pickupLocation,
@@ -32,11 +33,13 @@ const postCargo = async (req, res) => {
 
 const getMyCargos = async (req, res) => {
   try {
-    const cargos = await Cargo.find();
-    res.status(200).json({ cargos }); // ✅ Fix 1
+    const cargos = await Cargo.find({
+      postedBy: req.user.id,
+    });
+    res.status(200).json({ cargos });
   } catch (error) {
     res.status(500).json({ message: "Server error!", error: error.message });
   }
 };
 
-module.exports = { postCargo, getMyCargos }; // ✅ Fix 2
+module.exports = { postCargo, getMyCargos };
