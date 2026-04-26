@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PostCargo from "./pages/shipper/PostCargo";
+import AvailableCargos from "./pages/transporter/AvailableCargos";
 
 function App() {
   return (
@@ -41,6 +42,15 @@ function App() {
               element={
                 <ProtectedRoute role="shipper">
                   <PostCargo />
+                </ProtectedRoute>
+              }
+            ></Route>
+
+            <Route
+              path="/available-cargos"
+              element={
+                <ProtectedRoute role="transporter">
+                  <AvailableCargos />
                 </ProtectedRoute>
               }
             ></Route>
