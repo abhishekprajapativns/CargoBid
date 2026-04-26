@@ -42,4 +42,13 @@ const getMyCargos = async (req, res) => {
   }
 };
 
-module.exports = { postCargo, getMyCargos };
+const getAllCargos = async (req, res) => {
+  try {
+    const cargos = await Cargo.find();
+    res.status(200).json({ cargos });
+  } catch (error) {
+    res.status(500).json({ message: "Server error!", error: error.message });
+  }
+};
+
+module.exports = { postCargo, getMyCargos, getAllCargos };
