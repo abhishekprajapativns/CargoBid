@@ -28,4 +28,17 @@ const getQuotesByCargo = async (req, res) => {
   }
 };
 
-module.exports = { placeQuote, getQuotesByCargo };
+const acceptQuote = async (req, res) => {
+  try {
+    const quote = await CargoQuote.findByIdAndUpdate(
+      req.params.quoteId,
+      { status: "accepted" },
+      { new: true },
+    );
+    res.status(200).json({ message: "Quote accepted!", quote });
+  } catch (error) {
+    res.status(500).json({ message: "server error!", error: error.message });
+  }
+};
+
+module.exports = { placeQuote, getQuotesByCargo, acceptQuote };
