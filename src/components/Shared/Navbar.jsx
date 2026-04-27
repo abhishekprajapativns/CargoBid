@@ -1,5 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+
 function Navbar() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <>
       {/* Main Navbar */}
@@ -17,17 +22,40 @@ function Navbar() {
           <li className="hover:text-orange-500 cursor-pointer">
             <Link to="/">How it Works</Link>
           </li>
-          <li className="hover:text-orange-500 cursor-pointer">
-            <Link to="/login">Login</Link>
-          </li>
-          <li className="hover:text-orange-500 cursor-pointer">
-            <Link to="/register">Register</Link>
-          </li>
+
+          {user ? (
+            <>
+              <li className="text-blue-600 font-semibold">
+                Hi, {user.firstName}! 👋
+              </li>
+              <li
+                onClick={() => {
+                  logout();
+                  navigate("/");
+                }}
+                className="hover:text-red-500 cursor-pointer"
+              >
+                Logout
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="hover:text-orange-500 cursor-pointer">
+                <Link to="/login">Login</Link>
+              </li>
+              <li className="hover:text-orange-500 cursor-pointer">
+                <Link to="/register">Register</Link>
+              </li>
+            </>
+          )}
         </ul>
 
         {/* Button */}
         <div className="ml-8">
-          <button className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-600">
+          <button
+            onClick={() => navigate("/register")}
+            className="bg-blue-600 text-white px-5 py-2 rounded-full"
+          >
             Get Started
           </button>
         </div>
