@@ -78,6 +78,14 @@ function ShipperDashboard() {
               <p className="text-gray-400 text-sm">
                 Pickup: {cargo.pickupDate}
               </p>
+
+              {/* ✅ Button yahan hona chahiye */}
+              <button
+                onClick={() => navigate(`/shipper/quotes/${cargo._id}`)}
+                className="mt-2 bg-orange-500 text-white px-4 py-2 rounded-lg text-sm"
+              >
+                View Quotes
+              </button>
             </div>
           ))
         )}

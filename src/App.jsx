@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PostCargo from "./pages/shipper/PostCargo";
 import AvailableCargos from "./pages/transporter/AvailableCargos";
+import ViewQuotes from "./pages/shipper/ViewQuotes";
 
 function App() {
   return (
@@ -51,6 +52,15 @@ function App() {
               element={
                 <ProtectedRoute role="transporter">
                   <AvailableCargos />
+                </ProtectedRoute>
+              }
+            ></Route>
+
+            <Route
+              path="/shipper/quotes/:cargoId"
+              element={
+                <ProtectedRoute role="shipper">
+                  <ViewQuotes />
                 </ProtectedRoute>
               }
             ></Route>

@@ -1,0 +1,54 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth } from "../../context/AuthContext";
+import { useParams } from "react-router-dom";
+
+function ViewQuotes() {
+  const { token } = useAuth();
+  const { cargoId } = useParams();
+  const [quotes, setQuotes] = useState([]);
+
+  useEffect(() => {
+    const fetchQuotes = async () => {
+      const response = await axios.get(
+        `http://localhost:5000/api/quotes/${cargoId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      setQuotes(response.data.quotes);
+    };
+
+    fetchQuotes();
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-8">
+      <h1 className="text-3xl font-bold text-blue-700">Quotes Received</h1>
+      <div className="mt-8 grid grid-cols-1 gap-4">
+        {quotes.length === 0 ? (
+          <p className="text-gray-500 text-center">No quotes received yet!</p>
+        ) : (
+          quotes.map((quote) => (
+            <div key={quote._id} className="bg-white p-6 rounded-xl shadow">
+              <p className="text-2xl font-bold text-orange-500">
+                ₹{quote.price}
+              </p>
+              <p className="text-gray-500 mt-1">{quote.message}</p>
+              <p className="text-sm text-gray-400 mt-1">
+                Status: {quote.status}
+              </p>
+              <button className="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg">
+                Accept Quote
+              </button>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default ViewQuotes;
