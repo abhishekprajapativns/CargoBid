@@ -24,6 +24,19 @@ function ViewQuotes() {
     fetchQuotes();
   }, []);
 
+  const handleAccept = async (quoteId) => {
+    await axios.put(
+      `http://localhost:5000/api/quotes/${quoteId}/accept`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    alert("Quote Accepted!");
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <h1 className="text-3xl font-bold text-blue-700">Quotes Received</h1>
@@ -40,7 +53,10 @@ function ViewQuotes() {
               <p className="text-sm text-gray-400 mt-1">
                 Status: {quote.status}
               </p>
-              <button className="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg">
+              <button
+                onClick={() => handleAccept(quote._id)}
+                className="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg"
+              >
                 Accept Quote
               </button>
             </div>
