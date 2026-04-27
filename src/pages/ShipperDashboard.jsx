@@ -42,7 +42,7 @@ function ShipperDashboard() {
       {/* Stats Cards */}
       <div className="grid grid-cols-3 gap-6 mb-8">
         <div className="bg-white p-6 rounded-xl shadow text-center">
-          <p className="text-4xl font-bold text-blue-600">0</p>
+          <p className="text-4xl font-bold text-blue-600">{cargos.length}</p>
           <p className="text-gray-500 mt-2">Total Cargos Posted</p>
         </div>
         <div className="bg-white p-6 rounded-xl shadow text-center">
