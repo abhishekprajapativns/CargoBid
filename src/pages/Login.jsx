@@ -6,6 +6,7 @@ import axios from "axios";
 function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const [loginData, setLoginData] = useState({
     email: "",
@@ -18,18 +19,23 @@ function Login() {
 
   const handleSubmit = async (clickEvent) => {
     clickEvent.preventDefault();
+    setError(""); //First, clear the errors.
 
-    const response = await axios.post(
-      "http://localhost:5000/api/auth/login",
-      loginData,
-    );
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        loginData,
+      );
 
-    login(response.data.user, response.data.token);
+      login(response.data.user, response.data.token);
 
-    if (response.data.user.role === "shipper") {
-      navigate("/shipper/dashboard");
-    } else {
-      navigate("/transporter/dashboard");
+      if (response.data.user.role === "shipper") {
+        navigate("/shipper/dashboard");
+      } else {
+        navigate("/transporter/dashboard");
+      }
+    } catch (error) {
+      setError(error.response?.data?.message || "Something went wrong!");
     }
   };
 
@@ -56,6 +62,10 @@ function Login() {
           onChange={handleChange}
           className="w-full border p-3 rounded-lg mb-4 outline-none focus:border-blue-500"
         />
+
+        {error && (
+          <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
+        )}
 
         <button
           onClick={handleSubmit}
