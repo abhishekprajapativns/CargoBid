@@ -6,6 +6,7 @@ import axios from "axios";
 function PostCargo() {
   const { token } = useAuth();
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const [cargoData, setCargoData] = useState({
     cargoType: "",
@@ -23,18 +24,23 @@ function PostCargo() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
-    const response = await axios.post(
-      "http://localhost:5000/api/cargo/post",
-      cargoData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/cargo/post",
+        cargoData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      },
-    );
-    console.log(response.data);
-    navigate("/shipper/dashboard");
+      );
+      console.log(response.data);
+      navigate("/shipper/dashboard");
+    } catch (error) {
+      setError(error.response?.data?.message || "Something went wrong");
+    }
   };
 
   return (
@@ -161,6 +167,10 @@ function PostCargo() {
               className="w-full border p-3 rounded-lg outline-none focus:border-blue-500 resize-none"
             ></textarea>
           </div>
+
+          {error && (
+            <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
+          )}
 
           {/* Submit Button */}
           <button
