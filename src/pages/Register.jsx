@@ -8,6 +8,7 @@ function Register() {
   const [searchparam] = useSearchParams();
   const navigate = useNavigate();
   const roleFromUrl = searchparam.get("role");
+  const [error, setError] = useState("");
 
   const [registerData, setRegisterData] = useState({
     firstName: "",
@@ -24,19 +25,24 @@ function Register() {
 
   const handleSubmit = async (clickEvent) => {
     clickEvent.preventDefault();
+    setError("");
 
-    const response = await axios.post(
-      "http://localhost:5000/api/auth/register",
-      registerData,
-    );
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/register",
+        registerData,
+      );
 
-    login(response.data.user, response.data.token);
-    console.log(response.data);
+      login(response.data.user, response.data.token);
+      console.log(response.data);
 
-    if (registerData.role === "shipper") {
-      navigate("/shipper/dashboard");
-    } else {
-      navigate("/transporter/dashboard");
+      if (registerData.role === "shipper") {
+        navigate("/shipper/dashboard");
+      } else {
+        navigate("/transporter/dashboard");
+      }
+    } catch (error) {
+      setError(error.response?.data?.message || "Something went wrong!");
     }
   };
 
@@ -109,6 +115,10 @@ function Register() {
             <option value="shipper">Shipper</option>
             <option value="transporter">Transporter</option>
           </select>
+        )}
+
+        {error && (
+          <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
         )}
 
         <button
