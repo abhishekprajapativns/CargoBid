@@ -7,39 +7,51 @@ function ViewQuotes() {
   const { token } = useAuth();
   const { cargoId } = useParams();
   const [quotes, setQuotes] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchQuotes = async () => {
-      const response = await axios.get(
-        `http://localhost:5000/api/quotes/${cargoId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/quotes/${cargoId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        },
-      );
-      setQuotes(response.data.quotes);
+        );
+        setQuotes(response.data.quotes);
+      } catch (error) {
+        setError("Failed to load quotes!");
+      }
     };
 
     fetchQuotes();
   }, []);
 
   const handleAccept = async (quoteId) => {
-    await axios.put(
-      `http://localhost:5000/api/quotes/${quoteId}/accept`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      await axios.put(
+        `http://localhost:5000/api/quotes/${quoteId}/accept`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      },
-    );
-    alert("Quote Accepted!");
+      );
+      alert("Quote Accepted!");
+    } catch (error) {
+      setError(error.response?.data?.message || "Something went wrong");
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <h1 className="text-3xl font-bold text-blue-700">Quotes Received</h1>
+
+      {error && <p className="text-red-500 font-semibold mt-2">{error}</p>}
+
       <div className="mt-8 grid grid-cols-1 gap-4">
         {quotes.length === 0 ? (
           <p className="text-gray-500 text-center">No quotes received yet!</p>
