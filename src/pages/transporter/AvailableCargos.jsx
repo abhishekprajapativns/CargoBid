@@ -8,43 +8,58 @@ function AvailableCargos() {
   const [selectedCargo, setSelectedCargo] = useState(null);
   const [quoteData, setQuoteData] = useState({ price: "", message: "" });
   const [successMsg, setSuccessMsg] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchCargos = async () => {
-      const response = await axios.get("http://localhost:5000/api/cargo/all", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setCargos(response.data.cargos);
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/cargo/all",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        setCargos(response.data.cargos);
+      } catch (error) {
+        setError("Failed to load cargos!");
+      }
     };
 
     fetchCargos();
   }, []);
 
   const handleSubmitQuote = async () => {
-    const response = await axios.post(
-      "http://localhost:5000/api/quotes/place",
-      {
-        cargoId: selectedCargo,
-        price: quoteData.price,
-        message: quoteData.message,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/quotes/place",
+        {
+          cargoId: selectedCargo,
+          price: quoteData.price,
+          message: quoteData.message,
         },
-      },
-    );
-    console.log(response.data);
-    setSelectedCargo(null);
-    setQuoteData({ price: "", message: "" });
-    alert("Quote submitted successfully! 🎉");
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      console.log(response.data);
+      setSelectedCargo(null);
+      setQuoteData({ price: "", message: "" });
+      alert("Quote submitted successfully! ");
+    } catch (error) {
+      setError(error.response?.data?.message || "Something went wrong!");
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <h1 className="text-3xl font-bold text-blue-700">Available Cargos</h1>
+
+      {error && <p className="text-red-500 font-semibold mt-2">{error}</p>}
+
       {successMsg && (
         <p className="text-green-500 font-semibold mt-2">{successMsg}</p>
       )}
