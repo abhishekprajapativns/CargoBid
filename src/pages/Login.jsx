@@ -73,6 +73,13 @@ function Login() {
         >
           Login
         </button>
+
+        <p class="text-center mt-4 text-sm">
+          Don’t have an account?{" "}
+          <a class="text-blue-600" href="/register" data-discover="true">
+            Register
+          </a>
+        </p>
       </div>
     </div>
   );
