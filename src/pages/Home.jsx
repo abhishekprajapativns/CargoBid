@@ -19,11 +19,6 @@ function Home() {
         <p className="text-gray-200 mt-4 text-xl">
           Post your cargo, let transporters compete, save money!
         </p>
-        <h1 className="text-6xl font-bold text-white leading-tight">
-          Move Cargo. <br />
-          <span className="text-orange-500">Save Money.</span> <br />
-          Ship Smart.
-        </h1>
 
         <div className="mt-8 flex gap-4 justify-center items-center">
           <button
