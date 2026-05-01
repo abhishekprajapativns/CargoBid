@@ -9,12 +9,14 @@ function Home() {
         style={{ backgroundImage: `url(${heroBg})` }}
         className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center pt-32"
       >
+        <div className="absolute inset-0 bg-black/60"></div>
+
         {/* Content */}
         <div className="relative z-10 text-center">
-          <h1 className="text-6xl font-bold text-blue-700 animate-pulse drop-shadow-lg">
+          <h1 className="text-6xl font-bold text-white drop-shadow-lg ">
             Bid Low, Ship Smart
           </h1>
-          <p className="text-orange-600 mt-4 text-xl animate-pulse drop-shadow-lg">
+          <p className="text-gray-200 mt-4 text-xl ">
             Post your cargo, let transporters compete, save money!
           </p>
 
