@@ -29,4 +29,13 @@ npm start
 npm install
 npm run dev
 
+## Future Enhancements
+- Real-time notifications using Socket.io
+- Live GPS tracking using Google Maps API
+- Payment gateway integration
+- Mobile app (React Native)
+
 ## Made by Abhishek Prajapati
+GitHub: https://github.com/abhishekprajapativns
+
+## Live Demo
