@@ -25,9 +25,18 @@ function Navbar() {
 
           {user ? (
             <>
-              <li className="text-blue-600 font-semibold">
-                Hi, {user.firstName}! 👋
+              <li className="hover:text-orange-500 cursor-pointer">
+                <Link
+                  to={
+                    user.role === "shipper"
+                      ? "/shipper/dashboard"
+                      : "/transporter/dashboard"
+                  }
+                >
+                  Dashboard
+                </Link>
               </li>
+
               <li
                 onClick={() => {
                   logout();
@@ -42,9 +51,6 @@ function Navbar() {
             <>
               <li className="hover:text-orange-500 cursor-pointer">
                 <Link to="/login">Login</Link>
-              </li>
-              <li className="hover:text-orange-500 cursor-pointer">
-                <Link to="/register">Register</Link>
               </li>
             </>
           )}
