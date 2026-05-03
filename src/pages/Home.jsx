@@ -23,7 +23,7 @@ function Home() {
           <div className="mt-8 flex gap-4 justify-center items-center">
             <button
               onClick={() => navigate("/register?role=shipper")}
-              className="bg-blue-600 text-white px-6 py-3 rounded-full"
+              className="bg-blue-700 text-white px-6 py-3 rounded-full"
             >
               I am Shipper
             </button>
