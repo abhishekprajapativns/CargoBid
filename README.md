@@ -39,5 +39,5 @@ npm run dev
 GitHub: https://github.com/abhishekprajapativns
 
 ## Live Demo
-**Backend API:** https://cargobid.onrender.com
-**Frontend 
+Backend API: https://cargobid.onrender.com
+Frontend: https://cargo-bid.vercel.app
