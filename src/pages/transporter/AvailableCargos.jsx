@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
+import API from "../../api";
 
 function AvailableCargos() {
   const { token } = useAuth();
@@ -13,14 +13,11 @@ function AvailableCargos() {
   useEffect(() => {
     const fetchCargos = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/cargo/all",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+        const response = await API.get("/api/cargo/all", {
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
-        );
+        });
         setCargos(response.data.cargos);
       } catch (error) {
         setError("Failed to load cargos!");
@@ -32,8 +29,8 @@ function AvailableCargos() {
 
   const handleSubmitQuote = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/quotes/place",
+      const response = await API.post(
+        "/api/quotes/place",
         {
           cargoId: selectedCargo,
           price: quoteData.price,

@@ -1,7 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../api";
 
 function TransporterDashboard() {
   const { user, token } = useAuth();
@@ -11,14 +11,11 @@ function TransporterDashboard() {
   useEffect(() => {
     const fetchCargos = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/cargo/all",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+        const response = await API.get("/api/cargo/all", {
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
-        );
+        });
         setCargos(response.data.cargos);
       } catch (err) {
         console.log("Error fetching cargos:", err);

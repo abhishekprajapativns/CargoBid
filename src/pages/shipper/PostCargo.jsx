@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import axios from "axios";
+import API from "../../api";
 
 function PostCargo() {
   const { token } = useAuth();
@@ -27,15 +27,11 @@ function PostCargo() {
     setError("");
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/cargo/post",
-        cargoData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await API.post("/api/cargo/post", cargoData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
       console.log(response.data);
       navigate("/shipper/dashboard");
     } catch (error) {

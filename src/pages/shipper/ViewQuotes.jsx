@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { useParams } from "react-router-dom";
+import API from "../../api";
 
 function ViewQuotes() {
   const { token } = useAuth();
@@ -12,14 +12,11 @@ function ViewQuotes() {
   useEffect(() => {
     const fetchQuotes = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/api/quotes/${cargoId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+        const response = await API.get(`/api/quotes/${cargoId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
-        );
+        });
         setQuotes(response.data.quotes);
       } catch (error) {
         setError("Failed to load quotes!");
@@ -31,8 +28,8 @@ function ViewQuotes() {
 
   const handleAccept = async (quoteId) => {
     try {
-      await axios.put(
-        `http://localhost:5000/api/quotes/${quoteId}/accept`,
+      await API.put(
+        `/api/quotes/${quoteId}/accept`,
         {},
         {
           headers: {

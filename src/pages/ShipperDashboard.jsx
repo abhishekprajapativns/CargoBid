@@ -1,7 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../api";
 
 function ShipperDashboard() {
   const { user, token } = useAuth();
@@ -10,14 +10,11 @@ function ShipperDashboard() {
 
   useEffect(() => {
     const fetchCargos = async () => {
-      const response = await axios.get(
-        "http://localhost:5000/api/cargo/my-cargos",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await API.get("/api/cargo/my-cargos", {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
       setCargos(response.data.cargos);
     };
 
