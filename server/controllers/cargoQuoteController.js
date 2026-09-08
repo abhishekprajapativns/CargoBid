@@ -35,6 +35,14 @@ const acceptQuote = async (req, res) => {
       { status: "accepted" },
       { new: true },
     );
+
+    // Reject the remaining quotes
+
+    await CargoQuote.updateMany(
+      { cargoId: quote.cargoId, _id: { $ne: req.params.quoteId } },
+      { status: "rejected" },
+    );
+
     res.status(200).json({ message: "Quote accepted!", quote });
   } catch (error) {
     res.status(500).json({ message: "server error!", error: error.message });
