@@ -28,9 +28,13 @@ const register = async (req, res) => {
       { expiresIn: "7d" },
     );
 
-    res
-      .status(201)
-      .json({ message: "User register successfully!", user: newUser, token });
+    const { password: _, ...userWithoutPassword } = newUser.toObject();
+
+    res.status(201).json({
+      message: "User register successfully!",
+      user: userWithoutPassword,
+      token,
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error!", error: error.message });
   }
@@ -58,10 +62,12 @@ const login = async (req, res) => {
       },
     );
 
+    const { password: _, ...userWithoutPassword } = user.toObject();
+
     res.status(200).json({
       message: "Login successful!",
       token,
-      user,
+      user: userWithoutPassword,
     });
   } catch (error) {
     res.status(500).json({ message: "Server error!", error: error.message });
