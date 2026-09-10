@@ -38,6 +38,14 @@ function ViewQuotes() {
         },
       );
       alert("Quote Accepted!");
+
+      setQuotes(
+        quotes.map((q) =>
+          q._id === quoteId
+            ? { ...q, status: "accepted" }
+            : { ...q, status: "rejected" },
+        ),
+      );
     } catch (error) {
       setError(error.response?.data?.message || "Something went wrong");
     }
