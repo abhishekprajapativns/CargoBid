@@ -61,12 +61,14 @@ function Navbar() {
 
         {/* Button */}
         <div className="ml-8">
-          <button
-            onClick={() => navigate("/register")}
-            className="bg-blue-700 text-white px-5 py-2 rounded-full"
-          >
-            Get Started
-          </button>
+          {!user && (
+            <button
+              onClick={() => navigate("/register")}
+              className="bg-blue-700 text-white px-5 py-2 rounded-full"
+            >
+              Get Started
+            </button>
+          )}
         </div>
       </nav>
     </>
