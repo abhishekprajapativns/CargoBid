@@ -246,8 +246,3 @@ MERN Stack Developer | Full Stack Web Developer
 
 GitHub: https://github.com/abhishekprajapativns
 
----
-
-## 📄 License
-
-This project is created for learning and portfolio purposes.
