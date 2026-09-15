@@ -9,7 +9,6 @@ A full-stack **cargo bidding platform** that connects shippers with transporters
 
 ---
 
-
 ## ✨ Features
 
 ### 🔐 Authentication & Authorization
@@ -71,8 +70,8 @@ A full-stack **cargo bidding platform** that connects shippers with transporters
 ```text
 CargoBid/
 │
-├── src/                        # Frontend (React)
-│   ├── assets/                 # Images and static files
+├── src/                              # Frontend (React)
+│   ├── assets/                       # Images and static files
 │   ├── components/
 │   │   └── Shared/
 │   │       ├── Navbar.jsx
@@ -81,30 +80,37 @@ CargoBid/
 │   │   └── AuthContext.jsx
 │   ├── pages/
 │   │   ├── shipper/
-│   │   │   └── PostCargo.jsx
+│   │   │   ├── PostCargo.jsx
+│   │   │   └── ViewQuotes.jsx
+│   │   ├── transporter/
+│   │   │   └── AvailableCargos.jsx
 │   │   ├── Home.jsx
 │   │   ├── Login.jsx
 │   │   ├── Register.jsx
 │   │   ├── ShipperDashboard.jsx
 │   │   └── TransporterDashboard.jsx
+│   ├── api.js
 │   ├── App.jsx
 │   ├── main.jsx
 │   └── index.css
 │
-├── server/                     # Backend (Node.js + Express)
+├── server/                           # Backend (Node.js + Express)
 │   ├── config/
 │   │   └── db.js
 │   ├── controllers/
 │   │   ├── authController.js
-│   │   └── cargoController.js
+│   │   ├── cargoController.js
+│   │   └── cargoQuoteController.js
 │   ├── middleware/
 │   │   └── authMiddleware.js
 │   ├── models/
 │   │   ├── User.js
-│   │   └── Cargo.js
+│   │   ├── Cargo.js
+│   │   └── CargoQuote.js
 │   ├── routes/
 │   │   ├── authRoutes.js
-│   │   └── cargoRoutes.js
+│   │   ├── cargoRoutes.js
+│   │   └── cargoQuoteRoutes.js
 │   ├── .env
 │   └── index.js
 │
@@ -211,8 +217,14 @@ The frontend will start on `http://localhost:5173`
     └── POST /login
 
 /api/cargo
-    ├── POST /post        (Protected - Shipper)
-    └── GET  /my-cargos  (Protected - Shipper)
+    ├── POST /post              (Protected - Shipper)
+    ├── GET  /my-cargos         (Protected - Shipper)
+    └── GET  /all               (Protected - Transporter)
+
+/api/quotes
+    ├── POST /place             (Protected - Transporter)
+    ├── GET  /:cargoId          (Protected - Shipper)
+    └── PUT  /:quoteId/accept   (Protected - Shipper)
 ```
 
 ---
@@ -245,4 +257,3 @@ The frontend will start on `http://localhost:5173`
 MERN Stack Developer | Full Stack Web Developer
 
 GitHub: https://github.com/abhishekprajapativns
-
