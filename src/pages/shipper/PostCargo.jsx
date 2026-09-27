@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import API from "../../api";
+import toast from "react-hot-toast";
 
 function PostCargo() {
   const { token } = useAuth();
@@ -27,14 +28,15 @@ function PostCargo() {
     setError("");
 
     try {
-      const response = await API.post("/api/cargo/post", cargoData, {
+      await API.post("/api/cargo/post", cargoData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data);
-      navigate("/shipper/dashboard");
+      toast.success("Cargo posted successfully! 🎉");
+      setTimeout(() => navigate("/shipper/dashboard"), 1500);
     } catch (error) {
+      toast.error("Something went wrong! ❌");
       setError(error.response?.data?.message || "Something went wrong");
     }
   };
@@ -69,22 +71,15 @@ function PostCargo() {
           {/* Weight */}
           <div className="mb-4">
             <label className="block text-sm font-semibold text-blue-700 mb-1">
-              Weight (kg)"
+              Weight (kg)
             </label>
-
             <input
               type="number"
               name="weight"
               value={cargoData.weight}
               onChange={handleChange}
               placeholder="Enter weight in kg"
-              className="
-              w-full
-              border
-              p-3
-              rounded-lg
-              outline-none
-              focus:border-blue-500"
+              className="w-full border p-3 rounded-lg outline-none focus:border-blue-500"
             />
           </div>
 
@@ -93,19 +88,17 @@ function PostCargo() {
             <label className="block text-sm font-semibold text-blue-700 mb-1">
               Pickup Location
             </label>
-
             <input
               type="text"
               name="pickupLocation"
               value={cargoData.pickupLocation}
               onChange={handleChange}
-              placeholder="e.g.Mumbai"
+              placeholder="e.g. Mumbai"
               className="w-full border p-3 rounded-lg outline-none focus:border-blue-500"
             />
           </div>
 
-          {/* delivery Location */}
-
+          {/* Delivery Location */}
           <div className="mb-4">
             <label className="block text-sm font-semibold text-blue-700 mb-1">
               Delivery Location
@@ -134,7 +127,7 @@ function PostCargo() {
             />
           </div>
 
-          {/* Buget*/}
+          {/* Budget */}
           <div className="mb-4">
             <label className="block text-sm font-semibold text-blue-700 mb-1">
               Budget (₹)
@@ -144,12 +137,12 @@ function PostCargo() {
               name="budget"
               value={cargoData.budget}
               onChange={handleChange}
-              placeholder="e.d. 5000"
+              placeholder="e.g. 5000"
               className="w-full border p-3 rounded-lg outline-none focus:border-blue-500"
             />
           </div>
 
-          {/*  Description */}
+          {/* Description */}
           <div className="mb-6">
             <label className="block text-sm font-semibold text-blue-700 mb-1">
               Description
@@ -171,7 +164,7 @@ function PostCargo() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-3 rounded-lg font-bold hover:bg-blue-500"
+            className="w-full bg-blue-500 text-white py-3 rounded-lg font-bold hover:bg-blue-600"
           >
             Post Cargo
           </button>
