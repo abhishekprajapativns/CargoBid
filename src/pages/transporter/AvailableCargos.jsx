@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 function AvailableCargos() {
   const { token } = useAuth();
@@ -48,7 +49,9 @@ function AvailableCargos() {
       console.log(response.data);
       setSelectedCargo(null);
       setQuoteData({ price: "", message: "" });
-      alert("Quote submitted successfully! ");
+
+      // remove alert
+      toast.success("Quote submitted successfully! ");
     } catch (error) {
       setError(error.response?.data?.message || "Something went wrong!");
     }
