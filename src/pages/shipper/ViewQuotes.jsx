@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useParams } from "react-router-dom";
 import API from "../../api";
+import toast from "react-hot-toast";
 
 function ViewQuotes() {
   const { token } = useAuth();
@@ -37,7 +38,9 @@ function ViewQuotes() {
           },
         },
       );
-      alert("Quote Accepted!");
+      // remove alert
+
+      toast.success("Quote Accepted!");
 
       setQuotes(
         quotes.map((q) =>
