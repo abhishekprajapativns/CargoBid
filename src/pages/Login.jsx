@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import API from "../api";
+import toast from "react-hot-toast";
 
 function Login() {
   const { login } = useAuth();
@@ -25,6 +26,7 @@ function Login() {
       const response = await API.post("/api/auth/login", loginData);
 
       login(response.data.user, response.data.token);
+      toast.success("Login successful!");
 
       if (response.data.user.role === "shipper") {
         navigate("/shipper/dashboard");
@@ -32,7 +34,7 @@ function Login() {
         navigate("/transporter/dashboard");
       }
     } catch (error) {
-      setError(error.response?.data?.message || "Something went wrong!");
+      toast.error(error.response?.data?.message || "Something went wrong!");
     }
   };
 
