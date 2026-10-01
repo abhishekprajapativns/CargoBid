@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import API from "../api";
+import toast from "react-hot-toast";
 
 function Register() {
   const { login } = useAuth();
@@ -27,6 +28,11 @@ function Register() {
     clickEvent.preventDefault();
     setError("");
 
+    if (!registerData.role) {
+      toast.error("Please select a role");
+      return;
+    }
+
     try {
       const response = await API.post("/api/auth/register", registerData);
 
@@ -39,7 +45,7 @@ function Register() {
         navigate("/transporter/dashboard");
       }
     } catch (error) {
-      setError(error.response?.data?.message || "Something went wrong!");
+      toast.error(error.response?.data?.message || "Something went wrong!");
     }
   };
 
