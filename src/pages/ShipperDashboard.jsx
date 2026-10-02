@@ -7,15 +7,22 @@ function ShipperDashboard() {
   const { user, token } = useAuth();
   const navigate = useNavigate();
   const [cargos, setCargos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCargos = async () => {
-      const response = await API.get("/api/cargo/my-cargos", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setCargos(response.data.cargos);
+      try {
+        const response = await API.get("/api/cargo/my-cargos", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setCargos(response.data.cargos);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchCargos();
