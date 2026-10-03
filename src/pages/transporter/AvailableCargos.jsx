@@ -10,6 +10,7 @@ function AvailableCargos() {
   const [quoteData, setQuoteData] = useState({ price: "", message: "" });
   const [successMsg, setSuccessMsg] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCargos = async () => {
@@ -25,6 +26,8 @@ function AvailableCargos() {
         setCargos(response.data.cargos);
       } catch (error) {
         setError("Failed to load cargos!");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -68,7 +71,11 @@ function AvailableCargos() {
       )}
 
       <div className="mt-8 grid grid-cols-1 gap-4">
-        {cargos.length === 0 ? (
+        {loading ? (
+          <div className="flex justify-center items-center py-16">
+            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : cargos.length === 0 ? (
           <p className="text-gray-500 text-center">No cargos available!</p>
         ) : (
           cargos.map((cargo) => (
