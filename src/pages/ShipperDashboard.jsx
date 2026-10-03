@@ -63,7 +63,11 @@ function ShipperDashboard() {
       <div className="bg-white p-6 rounded-xl shadow">
         <h2 className="text-xl font-semibold mb-4">My Shipments</h2>
 
-        {cargos.length === 0 ? (
+        {loading ? (
+          <div className="flex justify-center items-center py-16">
+            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : cargos.length === 0 ? (
           <p className="text-gray-500 text-center py-8">
             No shipments posted yet!
           </p>
