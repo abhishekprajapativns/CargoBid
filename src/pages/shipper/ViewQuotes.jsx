@@ -9,6 +9,7 @@ function ViewQuotes() {
   const { cargoId } = useParams();
   const [quotes, setQuotes] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchQuotes = async () => {
@@ -21,6 +22,8 @@ function ViewQuotes() {
         setQuotes(response.data.quotes);
       } catch (error) {
         setError("Failed to load quotes!");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -61,7 +64,11 @@ function ViewQuotes() {
       {error && <p className="text-red-500 font-semibold mt-2">{error}</p>}
 
       <div className="mt-8 grid grid-cols-1 gap-4">
-        {quotes.length === 0 ? (
+        {loading ? (
+          <div className="flex justify-center items-center py-16">
+            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : quotes.length === 0 ? (
           <p className="text-gray-500 text-center">No quotes received yet!</p>
         ) : (
           quotes.map((quote) => (
