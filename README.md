@@ -49,6 +49,7 @@ A full-stack **cargo bidding platform** that connects shippers with transporters
 * React Router DOM
 * Context API
 * Vite
+* React Hot Toast
 
 ### Backend
 * Node.js
