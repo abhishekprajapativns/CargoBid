@@ -65,6 +65,7 @@ function App() {
               }
             ></Route>
           </Routes>
+          <Footer />
         </div>
       </BrowserRouter>
     </AuthProvider>
