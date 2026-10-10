@@ -4,6 +4,7 @@ import ShipperDashboard from "./pages/ShipperDashboard";
 import TransporterDashboard from "./pages/TransporterDashboard";
 import Navbar from "./components/Shared/Navbar";
 import Home from "./pages/Home";
+import Footer from "./components/Shared/Footer";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
